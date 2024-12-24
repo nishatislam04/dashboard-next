@@ -1,4 +1,5 @@
 import Menu from "@/components/Menu";
+import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,7 +15,9 @@ export default function DashboardLayout({ children }: Readonly<{ children: React
 				<Menu />
 			</div>
 			{/* right */}
-			<div className="w-[86%] md:w-[92%] lg:w-[84%] xl:w-[86%] ">r</div>
+			<div className="w-[86%] md:w-[92%] lg:w-[84%] xl:w-[86%] bg-[#f7f8fa] overflow-scroll">
+				<Navbar />
+			</div>
 		</div>
 	);
 }

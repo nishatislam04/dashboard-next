@@ -121,7 +121,7 @@ export default function Menu() {
 		<div className="mt-4 text-sm">
 			{menuItems.map((i) => (
 				<div className="flex flex-col gap-2" key={i.title}>
-					<span className="hidden lg:block text-gray-400 font-light my-4">{i.title}</span>
+					<span className="hidden lg:block text-gray-400 font-light my-3">{i.title}</span>
 					{i.items.map((item) => (
 						<Link
 							href={item.href}
