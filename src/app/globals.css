@@ -36,6 +36,10 @@
 	margin-left: 2px !important;
 }
 
+.rbc-toolbar {
+	align-items: end !important;
+}
+
 .rbc-toolbar button.rbc-active {
 	background-color: #dbdafe !important;
 	box-shadow: none !important;
