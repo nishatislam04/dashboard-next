@@ -6,7 +6,7 @@ CREATE TYPE "Day" AS ENUM ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY
 
 -- CreateTable
 CREATE TABLE "Admin" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "username" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -19,13 +19,14 @@ CREATE TABLE "Student" (
     "id" TEXT NOT NULL,
     "username" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "surrname" TEXT NOT NULL,
+    "surname" TEXT NOT NULL,
     "email" TEXT,
     "phone" TEXT,
     "address" TEXT NOT NULL,
     "img" TEXT,
     "bloodType" TEXT NOT NULL,
     "sex" "UserSex" NOT NULL,
+    "birthday" TIMESTAMP(3) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "parentId" TEXT NOT NULL,
@@ -40,13 +41,14 @@ CREATE TABLE "Teacher" (
     "id" TEXT NOT NULL,
     "username" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "surrname" TEXT NOT NULL,
+    "surname" TEXT NOT NULL,
     "email" TEXT,
     "phone" TEXT,
     "address" TEXT NOT NULL,
     "img" TEXT,
     "bloodType" TEXT NOT NULL,
     "sex" "UserSex" NOT NULL,
+    "birthday" TIMESTAMP(3) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -58,7 +60,7 @@ CREATE TABLE "Parent" (
     "id" TEXT NOT NULL,
     "username" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "surrname" TEXT NOT NULL,
+    "surname" TEXT NOT NULL,
     "email" TEXT,
     "phone" TEXT NOT NULL,
     "address" TEXT NOT NULL,
@@ -85,7 +87,7 @@ CREATE TABLE "Class" (
     "capacity" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "supervisorId" TEXT NOT NULL,
+    "supervisorId" TEXT,
     "gradeId" INTEGER NOT NULL,
 
     CONSTRAINT "Class_pkey" PRIMARY KEY ("id")
@@ -102,7 +104,7 @@ CREATE TABLE "Subject" (
 );
 
 -- CreateTable
-CREATE TABLE "Lession" (
+CREATE TABLE "Lesson" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "day" "Day" NOT NULL,
@@ -114,7 +116,7 @@ CREATE TABLE "Lession" (
     "classId" INTEGER NOT NULL,
     "teacherId" TEXT NOT NULL,
 
-    CONSTRAINT "Lession_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Lesson_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -125,7 +127,7 @@ CREATE TABLE "Exam" (
     "endTime" TIMESTAMP(3) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "lessionId" INTEGER NOT NULL,
+    "lessonId" INTEGER NOT NULL,
 
     CONSTRAINT "Exam_pkey" PRIMARY KEY ("id")
 );
@@ -138,7 +140,7 @@ CREATE TABLE "Assignment" (
     "dueDate" TIMESTAMP(3) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "lessionId" INTEGER NOT NULL,
+    "lessonId" INTEGER NOT NULL,
 
     CONSTRAINT "Assignment_pkey" PRIMARY KEY ("id")
 );
@@ -174,8 +176,8 @@ CREATE TABLE "Event" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "startDate" TIMESTAMP(3) NOT NULL,
-    "endDate" TIMESTAMP(3) NOT NULL,
+    "startTime" TIMESTAMP(3) NOT NULL,
+    "endTime" TIMESTAMP(3) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "classId" INTEGER,
@@ -256,25 +258,25 @@ ALTER TABLE "Student" ADD CONSTRAINT "Student_classId_fkey" FOREIGN KEY ("classI
 ALTER TABLE "Student" ADD CONSTRAINT "Student_gradeId_fkey" FOREIGN KEY ("gradeId") REFERENCES "Grade"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Class" ADD CONSTRAINT "Class_supervisorId_fkey" FOREIGN KEY ("supervisorId") REFERENCES "Teacher"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Class" ADD CONSTRAINT "Class_supervisorId_fkey" FOREIGN KEY ("supervisorId") REFERENCES "Teacher"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Class" ADD CONSTRAINT "Class_gradeId_fkey" FOREIGN KEY ("gradeId") REFERENCES "Grade"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Lession" ADD CONSTRAINT "Lession_subjectId_fkey" FOREIGN KEY ("subjectId") REFERENCES "Subject"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Lesson" ADD CONSTRAINT "Lesson_subjectId_fkey" FOREIGN KEY ("subjectId") REFERENCES "Subject"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Lession" ADD CONSTRAINT "Lession_classId_fkey" FOREIGN KEY ("classId") REFERENCES "Class"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Lesson" ADD CONSTRAINT "Lesson_classId_fkey" FOREIGN KEY ("classId") REFERENCES "Class"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Lession" ADD CONSTRAINT "Lession_teacherId_fkey" FOREIGN KEY ("teacherId") REFERENCES "Teacher"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Lesson" ADD CONSTRAINT "Lesson_teacherId_fkey" FOREIGN KEY ("teacherId") REFERENCES "Teacher"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Exam" ADD CONSTRAINT "Exam_lessionId_fkey" FOREIGN KEY ("lessionId") REFERENCES "Lession"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Exam" ADD CONSTRAINT "Exam_lessonId_fkey" FOREIGN KEY ("lessonId") REFERENCES "Lesson"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Assignment" ADD CONSTRAINT "Assignment_lessionId_fkey" FOREIGN KEY ("lessionId") REFERENCES "Lession"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Assignment" ADD CONSTRAINT "Assignment_lessonId_fkey" FOREIGN KEY ("lessonId") REFERENCES "Lesson"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Result" ADD CONSTRAINT "Result_examId_fkey" FOREIGN KEY ("examId") REFERENCES "Exam"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -289,7 +291,7 @@ ALTER TABLE "Result" ADD CONSTRAINT "Result_studentId_fkey" FOREIGN KEY ("studen
 ALTER TABLE "Attendance" ADD CONSTRAINT "Attendance_studentId_fkey" FOREIGN KEY ("studentId") REFERENCES "Student"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Attendance" ADD CONSTRAINT "Attendance_lessonId_fkey" FOREIGN KEY ("lessonId") REFERENCES "Lession"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Attendance" ADD CONSTRAINT "Attendance_lessonId_fkey" FOREIGN KEY ("lessonId") REFERENCES "Lesson"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Event" ADD CONSTRAINT "Event_classId_fkey" FOREIGN KEY ("classId") REFERENCES "Class"("id") ON DELETE SET NULL ON UPDATE CASCADE;
