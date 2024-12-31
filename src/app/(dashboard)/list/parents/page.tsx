@@ -20,7 +20,7 @@ const columns = [
 	{ header: "Student Names", accessor: "students", className: "hidden lg:table-cell" },
 	{ header: "Phone", accessor: "phone", className: "hidden lg:table-cell" },
 	{ header: "Address", accessor: "address", className: "hidden lg:table-cell" },
-	{ header: "Actions", accessors: "action" },
+	{ header: "Actions", accessor: "action" },
 ];
 
 export default function parentListPage() {

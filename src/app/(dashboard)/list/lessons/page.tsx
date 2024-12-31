@@ -17,7 +17,7 @@ const columns = [
 	{ header: "Subject Name", accessor: "name" },
 	{ header: "Class", accessor: "class" },
 	{ header: "Teacher", accessor: "teacher", className: "hidden lg:table-cell" },
-	{ header: "Actions", accessors: "action" },
+	{ header: "Actions", accessor: "action" },
 ];
 
 export default function lessonListPage() {

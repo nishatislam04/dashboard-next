@@ -21,7 +21,7 @@ const columns = [
 	{ header: "Date", accessor: "date", className: "hidden lg:table-cell" },
 	{ header: "Start Time", accessor: "startTime", className: "hidden lg:table-cell" },
 	{ header: "End Time", accessor: "endTime", className: "hidden lg:table-cell" },
-	{ header: "Actions", accessors: "action" },
+	{ header: "Actions", accessor: "action" },
 ];
 
 export default function EventListPage() {

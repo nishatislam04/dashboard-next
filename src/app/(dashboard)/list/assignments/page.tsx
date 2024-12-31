@@ -19,7 +19,7 @@ const columns = [
 	{ header: "Class", accessor: "class" },
 	{ header: "Teacher", accessor: "teacher", className: "hidden lg:table-cell" },
 	{ header: "Due Date", accessor: "dueDate", className: "hidden lg:table-cell" },
-	{ header: "Actions", accessors: "action" },
+	{ header: "Actions", accessor: "action" },
 ];
 
 export default function AssignmentListPage() {

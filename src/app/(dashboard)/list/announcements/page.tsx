@@ -17,7 +17,7 @@ const columns = [
 	{ header: "Title", accessor: "title" },
 	{ header: "Class", accessor: "class" },
 	{ header: "Date", accessor: "date", className: "hidden lg:table-cell" },
-	{ header: "Actions", accessors: "action" },
+	{ header: "Actions", accessor: "action" },
 ];
 
 export default function AnnouncementsListPage() {

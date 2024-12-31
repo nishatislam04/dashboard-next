@@ -19,7 +19,7 @@ const columns = [
 	{ header: "Capacity", accessor: "capacity", className: "hidden lg:table-cell" },
 	{ header: "Grade", accessor: "grade", className: "hidden lg:table-cell" },
 	{ header: "Supervisor", accessor: "supervisor", className: "hidden lg:table-cell" },
-	{ header: "Actions", accessors: "action" },
+	{ header: "Actions", accessor: "action" },
 ];
 
 export default function classListPage() {

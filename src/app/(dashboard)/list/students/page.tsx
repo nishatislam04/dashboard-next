@@ -24,7 +24,7 @@ const columns = [
 	{ header: "Grade", accessor: "grade", className: "hidden lg:table-cell" },
 	{ header: "Phone", accessor: "phone", className: "hidden lg:table-cell" },
 	{ header: "Address", accessor: "address", className: "hidden lg:table-cell" },
-	{ header: "Actions", accessors: "action" },
+	{ header: "Actions", accessor: "action" },
 ];
 
 export default function studentsListPage() {
@@ -43,6 +43,11 @@ export default function studentsListPage() {
 			<td className="hidden md:table-cell">{item.address}</td>
 			<td className="">
 				<div className="flex items-center gap-2">
+					<Link href={`/list/students/${item.id}`}>
+						<button className="w-7 h-7 flex justify-center items-center rounded-full bg-lamaSky">
+							<Image src="/view.png" alt="" width={16} height={16} />
+						</button>
+					</Link>
 					{role === "admin" && (
 						<>
 							<FormModal table="student" type="update" id={item.id} />
